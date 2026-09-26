@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Engineering Knowledge Booklet — 49 concepts from LLM basics to multi-agent orchestration</title>
+<title>AI Engineering Knowledge Booklet — 50 concepts from LLM basics to multi-agent orchestration</title>
 <meta name="description" content="From tokens and context windows to RAG, agents, orchestration and production ops. Every concept has a quick explanation, a deep dive and curated links.">
 <meta name="author" content="Denis">
 <meta name="theme-color" content="#f7f5f0">
@@ -13,7 +13,7 @@
 <!-- Open Graph (LinkedIn, Facebook, Slack) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI Engineering Knowledge Booklet">
-<meta property="og:title" content="AI Engineering Knowledge Booklet — 49 concepts, one page">
+<meta property="og:title" content="AI Engineering Knowledge Booklet — 50 concepts, one page">
 <meta property="og:description" content="From tokens and context windows to RAG, agents, orchestration and production ops. Every concept has a quick explanation, a deep dive and curated links.">
 <meta property="og:url" content="https://jsitla.github.io/AI-Knowledge-Booklet/">
 <meta property="og:image" content="https://jsitla.github.io/AI-Knowledge-Booklet/og-image.png">
@@ -21,15 +21,15 @@
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AI Engineering Knowledge Booklet — 49 concepts across five levels, from foundations to production and ops.">
+<meta property="og:image:alt" content="AI Engineering Knowledge Booklet — 50 concepts across five levels, from foundations to production and ops.">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI Engineering Knowledge Booklet — 49 concepts, one page">
+<meta name="twitter:title" content="AI Engineering Knowledge Booklet — 50 concepts, one page">
 <meta name="twitter:description" content="From tokens and context windows to RAG, agents, orchestration and production ops. Every concept has a quick explanation, a deep dive and curated links.">
 <meta name="twitter:image" content="https://jsitla.github.io/AI-Knowledge-Booklet/og-image.png">
-<meta name="twitter:image:alt" content="AI Engineering Knowledge Booklet — 49 concepts across five levels.">
+<meta name="twitter:image:alt" content="AI Engineering Knowledge Booklet — 50 concepts across five levels.">
 <style>
   :root{
     --bg:#f7f5f0; --card:#ffffff; --ink:#1a1a1e; --muted:#6b6b74; --line:#e5e1d8;
@@ -93,7 +93,7 @@
     <h1>AI Engineering Knowledge Booklet</h1>
     <div class="sub">A field guide to concepts, techniques &amp; skills — from LLM basics to multi-agent orchestration</div>
     <div class="meta">Compiled July 2026 · Click any concept to open the deep dive &amp; links</div>
-    <div class="byline">By Denis · <a href="https://shelfze.com" target="_blank" rel="noopener">shelfze.com</a></div>
+    <div class="byline">By Denis</div>
   </header>
 
   <div class="controls">
@@ -287,6 +287,11 @@ links:[{k:"paper",t:"ReAct: Synergizing Reasoning and Acting (Yao et al.)",u:"ht
 q:"MCP standardizes how AI apps discover and call external capabilities. A service (Slack, GitHub, your internal DB) exposes an MCP server describing its tools; any MCP-capable client (Claude, IDEs, custom agents) can connect and use them. Write the integration once, use it from every agent.",
 d:["Introduced by Anthropic in late 2024 and adopted industry-wide (OpenAI, Google, Microsoft), MCP defines servers (expose tools, resources, prompts), clients (the AI app), and transports (stdio for local, HTTP for remote). Thousands of community servers exist for common services.","For engineers, two sides: <i>consuming</i> MCP servers (wiring connectors into your agent — mind token bloat from too many tool schemas, and security of third-party servers) and <i>building</i> them (FastMCP in Python, the TypeScript SDK — apply all the tool-design craft above). MCP plus prompt injection is a real risk surface: a malicious document reaching a powerful tool set can exfiltrate data, so scope permissions carefully."],
 links:[{k:"docs",t:"modelcontextprotocol.io — official docs",u:"https://modelcontextprotocol.io/"},{k:"article",t:"Anthropic — Introducing MCP",u:"https://www.anthropic.com/news/model-context-protocol"},{k:"repo",t:"MCP servers directory (GitHub)",u:"https://github.com/modelcontextprotocol/servers"}]},
+
+{lv:3,t:"Agent Skills",o:"Folders of instructions an agent loads only when the task calls for them — packaging know-how the way tools package actions.",
+q:"A skill is a folder containing a SKILL.md file: a name, a description of when to use it, and the instructions themselves. Tools give an agent things it can do; skills give it procedures — a house style, a checklist, a multi-step workflow — without occupying context until they are actually needed.",
+d:["The mechanism is <b>progressive disclosure</b>, in three levels. At startup the agent sees only each skill's name and description (~100 tokens apiece). When a request matches, the SKILL.md body loads (kept under ~5k tokens). Bundled resources — reference files, templates, scripts — cost nothing until used, and a bundled script can run in the shell so only its output enters context, never its source. That is what lets a skill carry a whole API reference or a long style guide at no standing context cost.","The craft sits almost entirely in the <b>description</b>: it is the trigger, so it must say what the skill does <i>and</i> when to reach for it, in the words someone would actually use. Keep SKILL.md short and push detail into reference files read on demand; prefer a deterministic script over prose for any step that shouldn't be re-derived on every run. The failure modes are symmetrical — a vague description means the skill never fires, an over-broad one means it fires on everything, and a bloated SKILL.md defeats the point. Skills and MCP are complements rather than rivals: MCP connects an agent to systems, skills teach it procedures."],
+links:[{k:"essay",t:"Anthropic — Equipping agents for the real world with Agent Skills",u:"https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills"},{k:"docs",t:"Agent Skills — overview & SKILL.md format",u:"https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"},{k:"repo",t:"anthropics/skills — spec, template and examples",u:"https://github.com/anthropics/skills"},{k:"article",t:"Anthropic — Introducing Agent Skills",u:"https://www.anthropic.com/news/skills"}]},
 
 {lv:3,t:"Coding Agents",o:"Agents that write software: read a codebase, edit files, run tests, iterate until green. The most mature agent category.",
 q:"Tools like Claude Code, Cursor, Codex and Copilot agents take a task ('add auth to this endpoint'), explore the repository, make edits, run the tests, read the failures, and fix them — the verification loop (compile/test) is what makes coding the best-suited domain for agents.",

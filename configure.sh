@@ -21,8 +21,9 @@ SITE_URL="https://jsitla.github.io/AI-Knowledge-Booklet/"
 LINKEDIN_URL=""
 
 # Your site — shown next to your name under the title.
-WEBSITE_URL="https://shelfze.com"
-WEBSITE_LABEL="shelfze.com"
+# LEAVE BOTH EMPTY ("") to show no site at all.
+WEBSITE_URL=""
+WEBSITE_LABEL=""
 
 # How you want to be credited.
 AUTHOR="Denis"
@@ -59,6 +60,14 @@ else
   LINKEDIN_NOTE="$LINKEDIN_URL"
 fi
 
+# --- website is optional too: drop it from the byline if no URL was given ---
+if [[ -z "$WEBSITE_URL" ]]; then
+  sed -i 's| · <a href="__WEBSITE_URL__" target="_blank" rel="noopener">__WEBSITE_LABEL__</a>||' "$OUT"
+  WEBSITE_NOTE="(no site shown)"
+else
+  WEBSITE_NOTE="$WEBSITE_URL"
+fi
+
 sed -i \
   -e "s|__SITE_URL__|$(esc "$SITE_URL")|g" \
   -e "s|__LINKEDIN_URL__|$(esc "$LINKEDIN_URL")|g" \
@@ -78,5 +87,6 @@ echo "  page      : $SITE_URL"
 echo "  og:image  : ${SITE_URL}og-image.png"
 echo "  author    : $AUTHOR"
 echo "  linkedin  : $LINKEDIN_NOTE"
+echo "  website   : $WEBSITE_NOTE"
 echo
 echo "Next: commit and push, then enable GitHub Pages (see README.md)."

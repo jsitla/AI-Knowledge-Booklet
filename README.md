@@ -1,6 +1,6 @@
 # AI Engineering Knowledge Booklet
 
-A single-page, searchable field guide to 49 AI engineering concepts, from tokens and
+A single-page, searchable field guide to 50 AI engineering concepts, from tokens and
 context windows up to multi-agent orchestration and production ops. Every concept has a
 one-line definition, a "quick grasp" explanation, a deep dive, and links to primary sources.
 
@@ -61,11 +61,11 @@ stick around for a long time. Inspect *before* you post.
 
 ## Using a custom domain instead
 
-If you'd rather serve it from `shelfze.com`:
+If you'd rather serve it from your own domain:
 
-1. Put your domain in `configure.sh` as `SITE_URL` (e.g. `https://shelfze.com/ai-booklet/`)
+1. Put your domain in `configure.sh` as `SITE_URL` (e.g. `https://example.com/ai-booklet/`)
    and re-run it.
-2. Add a file named `CNAME` containing just `shelfze.com`.
+2. Add a file named `CNAME` containing just your domain.
 3. Point a `CNAME` DNS record at `<your-username>.github.io` (or, for an apex domain, four
    `A` records at GitHub's Pages IPs — GitHub's docs list the current ones).
 4. In **Settings → Pages**, enter the custom domain and tick *Enforce HTTPS* once the
@@ -76,7 +76,7 @@ If you'd rather serve it from `shelfze.com`:
 Edit `index.template.html`, then run `bash configure.sh` to regenerate `index.html` — if you
 edit `index.html` directly, your changes are overwritten the next time that script runs.
 
-All 49 concepts live in three `<script>` blocks near the bottom of the file, as a plain
+All 50 concepts live in three `<script>` blocks near the bottom of the file, as a plain
 JavaScript array. Each entry looks like:
 
 ```js
