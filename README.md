@@ -12,7 +12,7 @@ No build step, no dependencies, no tracking — one self-contained HTML file.
 |---|---|
 | `index.html` | **The page that gets served.** Already generated and ready to push. Self-contained: all CSS, JS and content inline. |
 | `index.template.html` | The source file, with `__PLACEHOLDERS__` for the URLs. `configure.sh` reads this. Don't delete it. |
-| `og-image.png` | 1200×630 preview card shown when the link is posted to LinkedIn/Slack/X. |
+| `og-image-v2.png` | 1200×630 preview card shown when the link is posted to LinkedIn/Slack/X. |
 | `configure.sh` | Regenerates `index.html` from the template. Only needed if you change a URL. |
 
 ## Publishing to GitHub Pages
